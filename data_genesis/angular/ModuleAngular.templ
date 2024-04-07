@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { routes } from './app.routes';
+import { HttpClientModule } from '@angular/common/http';
+import { NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+[imports]
+@NgModule({
+  declarations: [
+    [classComponents]
+  ],
+  imports: [
+    NgFor,
+    NgIf,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(routes) 
+  ],
+  providers: [],
+  bootstrap: []
+})
+export class AppModule { }

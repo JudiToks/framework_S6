@@ -1,0 +1,4 @@
+public Page<[classNameMaj]> pagination(@PathVariable Integer idfin){
+    PageRequest p = PageRequest.of(idfin,5);
+    return repo.findAll(p);
+}

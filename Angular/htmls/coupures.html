@@ -1,0 +1,57 @@
+<h2>Liste des coupures</h2>
+<table>
+  <thead>
+    <tr>
+     <th>idcoupure </th> 
+ 	<th>dhDebut </th> 
+ 	<th>dhFin </th> 
+ 	<th>idsecteur </th> 
+ 	
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let uneligne of coupures">
+     <td>{{coupures.idcoupure}}</td> 
+ 	<td>{{coupures.dhDebut}}</td> 
+ 	<td>{{coupures.dhFin}}</td> 
+ 	<td>{{coupures.idsecteur}}</td> 
+ 	
+      <td>
+        <button (click)="deleteCoupures(coupures.id)">Supprimer</button>
+        <button (click)="coupuresSelectionne = coupures">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Ajouter un nouvel coupurest</h2>
+<form (submit)="insertCoupures()">
+<label>Idcoupure</label> 
+<input type='number' [(ngModel)]='nouvelCoupures.'number name='idcoupure'> 
+<label>DhDebut</label> 
+<input type='Date' [(ngModel)]='nouvelCoupures.'Date name='dhDebut'> 
+<label>DhFin</label> 
+<input type='Date' [(ngModel)]='nouvelCoupures.'Date name='dhFin'> 
+<label>Idsecteur</label> 
+<input type='number' [(ngModel)]='nouvelCoupures.'number name='idsecteur'> 
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<h2>Modifier un coupures</h2>
+<form *ngIf="coupuresSelectionne.id" (submit)="updateCoupures()">
+  <input type="hidden" [(ngModel)]="coupuresSelectionne.id" name="id">
+  <label>
+    Nom:
+    <input type="text" [(ngModel)]="coupuresSelectionne.nom" name="nom" required>
+  </label>
+  <label>
+    Âge:
+    <input type="number" [(ngModel)]="coupuresSelectionne.age" name="age" required>
+  </label>
+  <label>
+    Classe:
+    <input type="text" [(ngModel)]="coupuresSelectionne.classe" name="classe" required>
+  </label>
+  <button type="submit">Enregistrer</button>
+</form>

@@ -1,0 +1,49 @@
+<h2>Liste des secteurs</h2>
+<table>
+  <thead>
+    <tr>
+     <th>idsecteur </th> 
+ 	<th>nomSecteur </th> 
+ 	
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let uneligne of secteurs">
+     <td>{{secteurs.idsecteur}}</td> 
+ 	<td>{{secteurs.nomSecteur}}</td> 
+ 	
+      <td>
+        <button (click)="deleteSecteurs(secteurs.id)">Supprimer</button>
+        <button (click)="secteursSelectionne = secteurs">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Ajouter un nouvel secteurst</h2>
+<form (submit)="insertSecteurs()">
+<label>Idsecteur</label> 
+<input type='number' [(ngModel)]='nouvelSecteurs.'number name='idsecteur'> 
+<label>NomSecteur</label> 
+<input type='string' [(ngModel)]='nouvelSecteurs.'string name='nomSecteur'> 
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<h2>Modifier un secteurs</h2>
+<form *ngIf="secteursSelectionne.id" (submit)="updateSecteurs()">
+  <input type="hidden" [(ngModel)]="secteursSelectionne.id" name="id">
+  <label>
+    Nom:
+    <input type="text" [(ngModel)]="secteursSelectionne.nom" name="nom" required>
+  </label>
+  <label>
+    Âge:
+    <input type="number" [(ngModel)]="secteursSelectionne.age" name="age" required>
+  </label>
+  <label>
+    Classe:
+    <input type="text" [(ngModel)]="secteursSelectionne.classe" name="classe" required>
+  </label>
+  <button type="submit">Enregistrer</button>
+</form>

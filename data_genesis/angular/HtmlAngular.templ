@@ -1,0 +1,80 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>[classNameMaj]</h1>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Liste des [classNameMin]</h5>
+            <table class="table">
+              <thead>
+                <tr>
+                  [attributs]
+                  <td></td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let uneligne of [classNameMin]">
+                  [valeurs]
+                  <td>
+                    <button class="btn btn-warning" (click)="[classNameMin]Selectionne = uneligne" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable" >Modifier</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-danger" (click)="delete[classNameMaj](uneligne.[primary])">Supprimer</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ul class="pagination" *ngFor="let page of pages">
+              <span>
+              
+              </span>
+              <li class="page-item">
+                <a class="page-link" (click)="get[classNameMaj](page)">
+                  {{page + 1}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-3 col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Ajouter un nouvel [classNameMin]</h5>
+            <form (submit)="insert[classNameMaj]()">
+              [inputs]
+              <div class="row mb-3 mt-5">
+                <div class="offset-5 col-sm-10">
+                  <button class="btn btn-primary" type="submit">Ajouter</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal fade" id="modalDialogScrollable" tabindex="-1" *ngIf="[classNameMin]Selectionne.[primary]">
+            <form class="modal-dialog modal-dialog-scrollable" (submit)="update[classNameMaj]()" >
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">[classNameMin]</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  [updates]
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" type="submit">Confirmer modification</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

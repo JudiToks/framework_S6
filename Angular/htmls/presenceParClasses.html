@@ -1,0 +1,65 @@
+<h2>Liste des presenceParClasses</h2>
+<table>
+  <thead>
+    <tr>
+     <th>idpresence </th> 
+ 	<th>idclasse </th> 
+ 	<th>idsalle </th> 
+ 	<th>dateheureDebutEtude </th> 
+ 	<th>dateheureFinEtude </th> 
+ 	<th>nombrePresente </th> 
+ 	
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let uneligne of presenceParClasses">
+     <td>{{presenceParClasses.idpresence}}</td> 
+ 	<td>{{presenceParClasses.idclasse}}</td> 
+ 	<td>{{presenceParClasses.idsalle}}</td> 
+ 	<td>{{presenceParClasses.dateheureDebutEtude}}</td> 
+ 	<td>{{presenceParClasses.dateheureFinEtude}}</td> 
+ 	<td>{{presenceParClasses.nombrePresente}}</td> 
+ 	
+      <td>
+        <button (click)="deletePresenceParClasses(presenceParClasses.id)">Supprimer</button>
+        <button (click)="presenceParClassesSelectionne = presenceParClasses">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Ajouter un nouvel presenceParClassest</h2>
+<form (submit)="insertPresenceParClasses()">
+<label>Idpresence</label> 
+<input type='number' [(ngModel)]='nouvelPresenceParClasses.'number name='idpresence'> 
+<label>Idclasse</label> 
+<input type='number' [(ngModel)]='nouvelPresenceParClasses.'number name='idclasse'> 
+<label>Idsalle</label> 
+<input type='number' [(ngModel)]='nouvelPresenceParClasses.'number name='idsalle'> 
+<label>DateheureDebutEtude</label> 
+<input type='Date' [(ngModel)]='nouvelPresenceParClasses.'Date name='dateheureDebutEtude'> 
+<label>DateheureFinEtude</label> 
+<input type='Date' [(ngModel)]='nouvelPresenceParClasses.'Date name='dateheureFinEtude'> 
+<label>NombrePresente</label> 
+<input type='number' [(ngModel)]='nouvelPresenceParClasses.'number name='nombrePresente'> 
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<h2>Modifier un presenceParClasses</h2>
+<form *ngIf="presenceParClassesSelectionne.id" (submit)="updatePresenceParClasses()">
+  <input type="hidden" [(ngModel)]="presenceParClassesSelectionne.id" name="id">
+  <label>
+    Nom:
+    <input type="text" [(ngModel)]="presenceParClassesSelectionne.nom" name="nom" required>
+  </label>
+  <label>
+    Âge:
+    <input type="number" [(ngModel)]="presenceParClassesSelectionne.age" name="age" required>
+  </label>
+  <label>
+    Classe:
+    <input type="text" [(ngModel)]="presenceParClassesSelectionne.classe" name="classe" required>
+  </label>
+  <button type="submit">Enregistrer</button>
+</form>

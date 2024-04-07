@@ -1,0 +1,74 @@
+import { Component, OnInit } from '@angular/core';
+import { [classNameMaj] } from './[classNameMin].model'; 
+import { [classNameMaj]Service } from './[classNameMin].service';
+
+@Component({
+  selector: 'app-[classNameMin]',
+  templateUrl: './[classNameMin].html',
+  styleUrls: []
+})
+export class [classNameMaj]Component implements OnInit {
+
+  [classNameMin]: [classNameMaj][] = [];
+  pages: number[] = [];
+  currentPage: number = 0;
+  nouvel[classNameMaj]: [classNameMaj] = {} as [classNameMaj]; 
+  [classNameMin]Selectionne: [classNameMaj] = {} as [classNameMaj]; 
+
+  constructor(private [classNameMin]Service: [classNameMaj]Service) { }
+
+  ngOnInit(): void {
+    this.get[classNameMaj](this.currentPage);
+  }
+
+  get[classNameMaj](pageNumber: number): void {
+    let totalPages: number = 0;
+    this.pages = []
+    this.[classNameMin]Service.get[classNameMaj](pageNumber).subscribe(
+      (data: any) => {
+        this.[classNameMin] = data.content;
+        this.currentPage = data.pageable.pageNumber;
+        totalPages = data.totalPages;
+      },
+      (error) => {
+        console.log('Erreur lors de la récupération des [classNameMin] : ', error);
+      }
+    );
+    for (let i = 0; i < totalPages; i++) {
+      this.pages.push(i);
+    }
+  }
+
+  insert[classNameMaj](): void {
+    this.[classNameMin]Service.insert[classNameMaj](this.nouvel[classNameMaj]).subscribe({
+      next : (value) =>{
+            this.get[classNameMaj](0)
+        },
+        error : (err) =>{
+          console.log('err',err);
+        }}
+    );
+  }
+
+  update[classNameMaj](): void {
+    this.[classNameMin]Service.update[classNameMaj](this.[classNameMin]Selectionne).subscribe({
+      next : (value) =>{
+            this.get[classNameMaj](0)
+        },
+        error : (err) =>{
+          console.log('err',err);
+        }}
+    );
+  }
+
+  delete[classNameMaj](id: number): void {
+    this.[classNameMin]Service.delete[classNameMaj](id).subscribe({
+     next : (value) =>{
+            this.get[classNameMaj](0)
+        },
+        error : (err) =>{
+          console.log('err',err);
+        }}
+    );
+  }
+}

@@ -1,0 +1,49 @@
+<h2>Liste des salles</h2>
+<table>
+  <thead>
+    <tr>
+     <th>idsalle </th> 
+ 	<th>nomSalle </th> 
+ 	
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let uneligne of salles">
+     <td>{{salles.idsalle}}</td> 
+ 	<td>{{salles.nomSalle}}</td> 
+ 	
+      <td>
+        <button (click)="deleteSalles(salles.id)">Supprimer</button>
+        <button (click)="sallesSelectionne = salles">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Ajouter un nouvel sallest</h2>
+<form (submit)="insertSalles()">
+<label>Idsalle</label> 
+<input type='number' [(ngModel)]='nouvelSalles.'number name='idsalle'> 
+<label>NomSalle</label> 
+<input type='string' [(ngModel)]='nouvelSalles.'string name='nomSalle'> 
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<h2>Modifier un salles</h2>
+<form *ngIf="sallesSelectionne.id" (submit)="updateSalles()">
+  <input type="hidden" [(ngModel)]="sallesSelectionne.id" name="id">
+  <label>
+    Nom:
+    <input type="text" [(ngModel)]="sallesSelectionne.nom" name="nom" required>
+  </label>
+  <label>
+    Âge:
+    <input type="number" [(ngModel)]="sallesSelectionne.age" name="age" required>
+  </label>
+  <label>
+    Classe:
+    <input type="text" [(ngModel)]="sallesSelectionne.classe" name="classe" required>
+  </label>
+  <button type="submit">Enregistrer</button>
+</form>

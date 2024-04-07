@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { [classNameMaj]Component } from './[classNameMin].component';
+
+describe('[classNameMaj]Component', () => {
+  let component: [classNameMaj]Component;
+  let fixture: ComponentFixture<[classNameMaj]Component>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [[classNameMaj]Component]
+    })
+    .compileComponents();
+    
+    fixture = TestBed.createComponent([classNameMaj]Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

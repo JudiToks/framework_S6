@@ -1,0 +1,57 @@
+<h2>Liste des luminosite</h2>
+<table>
+  <thead>
+    <tr>
+     <th>idluminosite </th> 
+ 	<th>niveau </th> 
+ 	<th>dateheureDebut </th> 
+ 	<th>dateheureFin </th> 
+ 	
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let uneligne of luminosite">
+     <td>{{luminosite.idluminosite}}</td> 
+ 	<td>{{luminosite.niveau}}</td> 
+ 	<td>{{luminosite.dateheureDebut}}</td> 
+ 	<td>{{luminosite.dateheureFin}}</td> 
+ 	
+      <td>
+        <button (click)="deleteLuminosite(luminosite.id)">Supprimer</button>
+        <button (click)="luminositeSelectionne = luminosite">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Ajouter un nouvel luminositet</h2>
+<form (submit)="insertLuminosite()">
+<label>Idluminosite</label> 
+<input type='number' [(ngModel)]='nouvelLuminosite.'number name='idluminosite'> 
+<label>Niveau</label> 
+<input type='number' [(ngModel)]='nouvelLuminosite.'number name='niveau'> 
+<label>DateheureDebut</label> 
+<input type='Date' [(ngModel)]='nouvelLuminosite.'Date name='dateheureDebut'> 
+<label>DateheureFin</label> 
+<input type='Date' [(ngModel)]='nouvelLuminosite.'Date name='dateheureFin'> 
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<h2>Modifier un luminosite</h2>
+<form *ngIf="luminositeSelectionne.id" (submit)="updateLuminosite()">
+  <input type="hidden" [(ngModel)]="luminositeSelectionne.id" name="id">
+  <label>
+    Nom:
+    <input type="text" [(ngModel)]="luminositeSelectionne.nom" name="nom" required>
+  </label>
+  <label>
+    Âge:
+    <input type="number" [(ngModel)]="luminositeSelectionne.age" name="age" required>
+  </label>
+  <label>
+    Classe:
+    <input type="text" [(ngModel)]="luminositeSelectionne.classe" name="classe" required>
+  </label>
+  <button type="submit">Enregistrer</button>
+</form>

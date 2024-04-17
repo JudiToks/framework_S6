@@ -29,11 +29,8 @@
                 </tr>
               </tbody>
             </table>
-            <ul class="pagination" *ngFor="let page of pages">
-              <span>
-              
-              </span>
-              <li class="page-item">
+            <ul class="pagination">
+              <li class="page-item" *ngFor="let page of pages" [ngClass]="{'active': currentPage === page}">
                 <a class="page-link" (click)="get[classNameMaj](page)">
                   {{page + 1}}
                 </a>
@@ -57,23 +54,23 @@
               </div>
             </form>
           </div>
-          <div class="modal fade" id="modalDialogScrollable" tabindex="-1" *ngIf="[classNameMin]Selectionne.[primary]">
-            <form class="modal-dialog modal-dialog-scrollable" (submit)="update[classNameMaj]()" >
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">[classNameMin]</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  [updates]
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" type="submit">Confirmer modification</button>
-                </div>
-              </div>
-            </form>
-          </div>
         </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modalDialogScrollable" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <form class="modal-content" (submit)="update[classNameMaj]()" *ngIf="[classNameMin]Selectionne.[primary]">
+          <div class="modal-header">
+            <h5 class="modal-title">[classNameMin]</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+             [updates]
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Confirmer modification</button>
+          </div>
+        </form>
       </div>
     </div>
   </section>

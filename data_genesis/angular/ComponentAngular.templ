@@ -18,13 +18,13 @@ export class [classNameMaj]Component implements OnInit {
   constructor(private [classNameMin]Service: [classNameMaj]Service) { }
 
   ngOnInit(): void {
-    this.get[classNameMaj](this.currentPage);
+    this.get[classNameMaj]Init();
   }
 
-  get[classNameMaj](pageNumber: number): void {
+  get[classNameMaj]Init(): void {
     let totalPages: number = 0;
     this.pages = []
-    this.[classNameMin]Service.get[classNameMaj](pageNumber).subscribe(
+    this.[classNameMin]Service.get[classNameMaj](0).subscribe(
       (data: any) => {
         this.[classNameMin] = data.content;
         this.currentPage = data.pageable.pageNumber;
@@ -39,10 +39,25 @@ export class [classNameMaj]Component implements OnInit {
     }
   }
 
+   get[classNameMaj](pageNumber: number): void {
+       let totalPages: number = 0;
+       this.[classNameMin]Service.get[classNameMaj](pageNumber).subscribe(
+         (data: any) => {
+           this.[classNameMin] = data.content;
+           this.currentPage = data.pageable.pageNumber;
+           totalPages = data.totalPages;
+         },
+         (error) => {
+           console.log('Erreur lors de la récupération des [classNameMin] : ', error);
+         }
+       );
+     }
+
   insert[classNameMaj](): void {
     this.[classNameMin]Service.insert[classNameMaj](this.nouvel[classNameMaj]).subscribe({
       next : (value) =>{
-            this.get[classNameMaj](0)
+            this.get[classNameMaj]Init();
+            location.reload();
         },
         error : (err) =>{
           console.log('err',err);
@@ -53,7 +68,8 @@ export class [classNameMaj]Component implements OnInit {
   update[classNameMaj](): void {
     this.[classNameMin]Service.update[classNameMaj](this.[classNameMin]Selectionne).subscribe({
       next : (value) =>{
-            this.get[classNameMaj](0)
+            this.get[classNameMaj]Init();
+            location.reload();
         },
         error : (err) =>{
           console.log('err',err);
@@ -64,7 +80,8 @@ export class [classNameMaj]Component implements OnInit {
   delete[classNameMaj](id: number): void {
     this.[classNameMin]Service.delete[classNameMaj](id).subscribe({
      next : (value) =>{
-            this.get[classNameMaj](0)
+            this.get[classNameMaj]Init();
+            location.reload();
         },
         error : (err) =>{
           console.log('err',err);

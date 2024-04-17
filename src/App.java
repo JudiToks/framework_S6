@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import genesis.Constantes;
 import genesis.Credentials;
-import genesis.CustomChanges;
 import genesis.CustomFile;
 import genesis.Database;
 import genesis.Entity;
@@ -25,16 +24,14 @@ public class App {
         String projectName, entityName;
         Credentials credentials;
         String projectNameTagPath, projectNameTagContent;
-        File project, credentialFile, project_view, credentialFileView;
+        File project, credentialFile, project_view;
         String customFilePath, customFileContentOuter;
         Entity[] entities;
         String[] models, controllers;
         String modelFile, controllerFile, customFile;
         String customFileContent;
         String foreignContext;
-        String customChanges, changesFile;
         String apiHost;
-        // String navLink, navLinkPath;
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Choose a database engine:");
             for (int i = 0; i < databases.length; i++) {
@@ -44,7 +41,7 @@ public class App {
             database = databases[scanner.nextInt() - 1];
             System.out.println("Choose a framework:");
             for (int i = 0; i < languages.length; i++) {
-                System.out.println((i + 1) + ") " +languages[i].getNom());
+                System.out.println((i + 1) + ") " + languages[i].getNom());
             }
             System.out.print("> ");
             language = languages[scanner.nextInt() - 1];
@@ -67,13 +64,13 @@ public class App {
             System.out.print("Which entities to import ?(* to select all): ");
             entityName = scanner.next();
             credentials = new Credentials(databaseName, user, pwd, host, useSSL, allowPublicKeyRetrieval);
-            System.out.print("Enter the host for services (like http://localhost:8080/myproject): ");
+            System.out.print("Enter the host for services (like http://localhost:8080): ");
             apiHost = scanner.next();
-            project = new File(projectName+"_back");
+            project = new File(projectName + "_back");
             project.mkdir();
-            project_view = new File(projectName+"_front");
+            project_view = new File(projectName + "_front");
             project_view.mkdir();
-            String project_view_name=projectName+"_front";
+            String project_view_name = projectName + "_front";
             projectName = projectName + "_back";
             for (CustomFile c : language.getAdditionnalFiles()) {
                 customFilePath = c.getName();
@@ -113,7 +110,7 @@ public class App {
                 }
                 models = new String[entities.length];
                 controllers = new String[entities.length];
-                String vue_paths = project_view_name+"/"+Constantes.ANGULAR_COMPONENT_PATH;
+                String vue_paths = project_view_name + "/" + Constantes.ANGULAR_COMPONENT_PATH;
                 for (int i = 0; i < models.length; i++) {
                     models[i] = language.generateModel(entities[i], projectName);
                     controllers[i] = language.generateController(entities[i], database, credentials, projectName);
@@ -121,7 +118,7 @@ public class App {
                             HandyManUtils.majStart(projectName));
                     controllerFile = language.getController().getControllerSavepath().replace("[projectNameMaj]",
                             HandyManUtils.majStart(projectName));
-                                  modelFile = modelFile.replace("[projectNameMin]", HandyManUtils.minStart(projectName));
+                    modelFile = modelFile.replace("[projectNameMin]", HandyManUtils.minStart(projectName));
                     controllerFile = controllerFile.replace("[projectNameMin]", HandyManUtils.minStart(projectName));
                     modelFile += "/" + HandyManUtils.majStart(entities[i].getClassName()) + "."
                             + language.getModel().getModelExtension();
@@ -131,7 +128,7 @@ public class App {
                     HandyManUtils.createFile(modelFile);
                     for (CustomFile f : language.getModel().getModelAdditionnalFiles()) {
                         foreignContext = "";
-                        
+
                         for (EntityField ef : entities[i].getFields()) {
                             if (ef.isForeign()) {
                                 foreignContext += language.getModel().getModelForeignContextAttr();
@@ -150,14 +147,10 @@ public class App {
                                 HandyManUtils.minStart(projectName));
                         customFileContent = customFileContent.replace("[projectNameMaj]",
                                 HandyManUtils.majStart(projectName));
-                        customFileContent=customFileContent.replace("[classNameMaj]", HandyManUtils.majStart(entities[i].getClassName()));
-                        for(int r=0;r<entities[i].getFields().length;r++){
-                                System.out.println("entities[i].getFields()[r].getName() = "+entities[i].getFields()[r].getName());
-                        }
-                        customFileContent=customFileContent.replace("[classNameMin]", HandyManUtils.minStart(entities[i].getClassName()));System.out.println("HandyManUtils.minStart( entities[i].getPrimaryField().getName()) = "+ HandyManUtils.minStart( entities[i].getPrimaryField().getName()));
-                        customFileContent=customFileContent.replace("[primaryIds]",HandyManUtils.minStart( entities[i].getPrimaryField().getName()));
-                        customFileContent=customFileContent.replace("[primaryType]",HandyManUtils.majStart( entities[i].getPrimaryField().getType()));
-                        
+                        customFileContent = customFileContent.replace("[classNameMaj]", HandyManUtils.majStart(entities[i].getClassName()));
+                        customFileContent = customFileContent.replace("[classNameMin]", HandyManUtils.minStart(entities[i].getClassName()));
+                        customFileContent = customFileContent.replace("[primaryIds]", HandyManUtils.minStart(entities[i].getPrimaryField().getName()));
+                        customFileContent = customFileContent.replace("[primaryType]", HandyManUtils.majStart(entities[i].getPrimaryField().getType()));
                         customFileContent = customFileContent.replace("[databaseHost]", credentials.getHost());
                         customFileContent = customFileContent.replace("[databaseName]", credentials.getDatabaseName());
                         customFileContent = customFileContent.replace("[user]", credentials.getUser());
@@ -169,13 +162,11 @@ public class App {
                     HandyManUtils.createFile(controllerFile);
                     HandyManUtils.overwriteFileContent(modelFile, models[i]);
                     HandyManUtils.overwriteFileContent(controllerFile, controllers[i]);
-                    
-                    language.generateAComponent(entities[i],vue_paths,apiHost);
-                    }
-                    
+                    language.generateAComponent(entities[i], vue_paths, apiHost);
+                }
                 language.overWriteRoute(entities, vue_paths);
                 language.overWriteModule(entities, vue_paths);
-                language.generateMenu(entities,vue_paths);
+                language.generateMenu(entities, vue_paths);
             }
         }
     }

@@ -6,6 +6,7 @@
         "port":"5432",
         "types":{
             "integer":"int",
+            "text":"string",
             "character varying":"string",
             "real":"double",
             "double":"double",
@@ -21,6 +22,7 @@
         "gettablesQuery":"SELECT tablename as table_name FROM pg_catalog.pg_tables WHERE schemaname = 'public'",
         "angularTypes":{
             "integer":"number",
+            "text":"string",
             "character varying":"string",
             "real":"number",
             "double":"number",
